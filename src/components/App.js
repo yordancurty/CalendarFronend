@@ -16,6 +16,9 @@ import Profile from "../routeComponent/profile/Profile";
 import ProfileEdit from "../routeComponent/profile/ProfileEdit";
 import ProfileDelete from "../routeComponent/profile/ProfileDelete";
 
+import DayGuide from "../routeComponent/calendar/DayGuide"
+import MonthGuide from "../routeComponent/calendar/MonthGuide"
+import YearGuide from "../routeComponent/calendar/YearGuide"
 
 import ActivityTaskCreate from "../routeComponent/activityTasks/ActivityTaskCreate";
 import ActivityTaskEdit from "../routeComponent/activityTasks/ActivityTaskEdit";
@@ -74,137 +77,183 @@ const handleLogout = () => {
     <Navbar user={loggedInUser} />
       {loggedInUser._id ? (
             <Switch>            
-               <PrivateRoute exact path="/logout" component={Logout} user={loggedInUser} setUser={setLoggedInUser} handleLogout={handleLogout}/>
-       <PrivateRoute
-            exact
-            path="/profile"
-            component={Profile}
-            user={loggedInUser}
-            profileState={profile}
-            setProfile={setProfile}
-            activityTasksState={activityTasks}
-            setActivityTasks={setActivityTasks}
-          />    
-      <PrivateRoute
-            path="/profile/edit"
-            exact
-            component={ProfileEdit}
-            user={loggedInUser}
-            profileState={profile}
-            setProfile={setProfile}
-          />
-      <PrivateRoute
-            path="/profile/delete/:id"
-            exact
-            component={ProfileDelete}
-            user={loggedInUser}
-            setUser={setLoggedInUser} 
-          />                
-      <PrivateRoute
-            path="/activityTask/new/:userId"
-            exact
-            component={ActivityTaskCreate}
-            user={loggedInUser}
-          />  
-      <PrivateRoute
-            exact
-            path="/activityTask/edit/:id"
-            component={ActivityTaskEdit}
-            user={loggedInUser}
-            activityTasksState={activityTasks}
-            setActivityTasks={setActivityTasks}
-          />
-      <PrivateRoute
-            exact
-            path="/activityTask/delete/:id"
-            component={ActivityTaskDelete}
-            user={loggedInUser}
-          />          
-              <Route exact path="/" component={Homepage} />
+                <PrivateRoute 
+                  exact path="/logout" 
+                  component={Logout} 
+                  user={loggedInUser} 
+                  setUser={setLoggedInUser} 
+                  handleLogout={handleLogout}
+                />
 
-              
-              <Route 
-               exact path="/activityTask/:id"
-               render={(props) => {
-                return (
-                  <ActivityTaskDetail
-                    {...props}
-                    setLoggedInUser={setLoggedInUser}
-                    checkout={checkout} 
-                    setCheckout={setCheckout}
-                  />
-                );
-              }}
-              />
+                {/* ------------------ ROTAS DO SISTEMA DE PERFIL ------------- */}
+
+                <PrivateRoute
+                    exact
+                    path="/profile"
+                    component={Profile}
+                    user={loggedInUser}
+                    profileState={profile}
+                    setProfile={setProfile}
+                    activityTasksState={activityTasks}
+                    setActivityTasks={setActivityTasks}
+                />   
+
+                <PrivateRoute
+                    exact path="/profile/edit"
+                    component={ProfileEdit}
+                    user={loggedInUser}
+                    profileState={profile}
+                    setProfile={setProfile}
+                />
+
+                <PrivateRoute
+                    exact path="/profile/delete/:id"
+                    component={ProfileDelete}
+                    user={loggedInUser}
+                    setUser={setLoggedInUser} 
+                />   
+
+                {/* ----------- ROTAS DO SISTEMA DE CALENDARIO --------- */}
+
+                <PrivateRoute
+                    exact path="/day/:id"
+                    component={DayGuide}
+                    user={loggedInUser}
+                    setUser={setLoggedInUser} 
+                /> 
+
+                <PrivateRoute
+                    exact path="/monthNow"
+                    component={MonthGuide}
+                    user={loggedInUser}
+                    setUser={setLoggedInUser} 
+                /> 
+
+                <PrivateRoute
+                    exact path="/year"
+                    component={YearGuide}
+                    user={loggedInUser}
+                    setUser={setLoggedInUser} 
+                />  
+
+                {/* --------------- ROTAS DO SISTEMA DE TAREFAS -------------- */}
+
+                <PrivateRoute
+                    path="/activityTask/new/:userId"
+                    exact
+                    component={ActivityTaskCreate}
+                    user={loggedInUser}
+                />  
+
+                <PrivateRoute
+                    exact
+                    path="/activityTask/edit/:id"
+                    component={ActivityTaskEdit}
+                    user={loggedInUser}
+                    activityTasksState={activityTasks}
+                    setActivityTasks={setActivityTasks}
+                />
+
+                <PrivateRoute
+                    exact
+                    path="/activityTask/delete/:id"
+                    component={ActivityTaskDelete}
+                    user={loggedInUser}
+                />  
+
+                
+                
+                <Route 
+                  exact path="/activityTask/:id"
+                  render={(props) => {
+                      return (
+                          <ActivityTaskDetail
+                            {...props}
+                            setLoggedInUser={setLoggedInUser}
+                            checkout={checkout} 
+                            setCheckout={setCheckout}
+                          />
+                      );
+                  }}
+                />
               
              
 
-              <Route exact path="/activityTask-all"         
-              render={(props) => {
-                  return (
-                    <ActivityTaskFeed
-                    activityTasksState={activityTasks} 
-                    setActivityTasks={setActivityTasks}
-                      {...props}
-                      
-                    />
-                  );
-                }} 
-              />
+                <Route exact path="/activityTask-all"         
+                  render={(props) => {
+                        return (
+                          <ActivityTaskFeed
+                          activityTasksState={activityTasks} 
+                          setActivityTasks={setActivityTasks}
+                            {...props}
+                            
+                          />
+                        );
+                    }} 
+                />
               
 
-             <Route>
-                <Redirect to="/profile" />
-              </Route>
-            </Switch>
+                <Route>
+                  <Redirect to="/monthNow" />
+                </Route>
+
+              </Switch>
           ) : (
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                render={(props) => {
-                  return (
-                    <LoginForm
-                      {...props}
-                      setLoggedInUser={setLoggedInUser}
-                    />
-                  );
-                }}
-              />
-              <Route exact path="/" component={Homepage} />
 
-              
-              <Route exact path="/activityTask-all"         
-              render={(props) => {
-                  return (
-                    <ActivityTaskFeed
-                    activityTasksState={activityTasks} 
-                    setActivityTasks={setActivityTasks}
-                      {...props}
-                      
-                    />
-                  );
-                }} />
-              <Route 
-                exact path="/activityTask/:id"  
-                render={(props) => {
-                  return (
-                    <ActivityTaskDetail
-                      {...props}
-                      setLoggedInUser={setLoggedInUser}
-                      checkout={checkout} 
-                      setCheckout={setCheckout}
-                    />
-                  );
-                }}
-              /> 
+              // - - - - - - - - - ROTAS PUBLICAS - - - - - - - - - - 
 
-              <Route exact path="/signup" component={SignupForm} />
-              
-              <Route>
-                <Redirect to="/login" />
-              </Route>
-            </Switch>
+              <Switch>
+
+                <Route
+                  exact
+                  path="/login"
+                  render={(props) => {
+                    return (
+                      <LoginForm
+                        {...props}
+                        setLoggedInUser={setLoggedInUser}
+                      />
+                    );
+                  }}
+                />
+
+                <Route exact path="/" component={Homepage} />
+
+                
+                <Route exact path="/activityTask-all"         
+                  render={(props) => {
+                      return (
+                        <ActivityTaskFeed
+                        activityTasksState={activityTasks} 
+                        setActivityTasks={setActivityTasks}
+                          {...props}
+                          
+                        />
+                      );
+                    }} 
+                  />
+
+                <Route 
+                  exact path="/activityTask/:id"  
+                  render={(props) => {
+                    return (
+                      <ActivityTaskDetail
+                        {...props}
+                        setLoggedInUser={setLoggedInUser}
+                        checkout={checkout} 
+                        setCheckout={setCheckout}
+                      />
+                    );
+                  }}
+                /> 
+
+                <Route exact path="/signup" component={SignupForm} />
+                
+                <Route>
+                  <Redirect to="/login" />
+                </Route>
+
+              </Switch>
           )}
       <Footer />
     </BrowserRouter>

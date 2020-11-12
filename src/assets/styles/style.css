@@ -1240,12 +1240,54 @@ border-radius: 0%;
 } */
 
 
+/* -------------- MONTH --------------- */
+
+.monthPage{
+    justify-content: center;
+}
 
 
+.monthContainer{
+    /* border: solid 1px green; */
+    margin: 100px 120px ;
+}
 
+.monthNameClass{
+    padding-top: 50px;
+    padding-right: 90px;
+}
 
+.monthH1Div{
+    border: solid 2px #39ba90;
+    background-color: #F8F9FA;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 60px;
+    margin: 5px 10px;
+    color: black;
+    text-decoration: none;
+    
+}
 
+.monthH1Div a{
+    text-decoration: none;
+    color: black;
+}
 
+.monthDays{
+    text-align: center;
+    border: solid 1 px green;
+    width: 30px;
+}
+
+.monthDayText{
+    
+    border: solid 1px yellow;
+}
 
 
 

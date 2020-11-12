@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from '../../../src/logo.png';
 import api from '../../apis/index';
 import { useHistory } from "react-router-dom";
 import LoadingButton from "../../components/LoadingButton";

@@ -1,24 +1,5 @@
 import React from "react";
 
-const subCategoryList = [
-  "HQ",
-  "Romance",
-  "Poesia",
-  "Biografia",
-  "Fantasia",
-  "Ficção",
-  "Documentario",
-  "Filmes",
-  "Curtas",
-  "Animação",
-  "Pintura",
-  "Escultura",
-  "Desenho",
-  "Macramê",
-  "Crochet",
-  "Tricot",
-  "Cerâmica",
-];
 
 function ActivityTaskForm(props) {
   function handleChange(event) {
@@ -154,14 +135,7 @@ function ActivityTaskForm(props) {
               className="custom-select ml-2"
               required={true}
             >
-              <option disabled value="default">
-                Qual é a subcategoria?
-              </option>
-              {subCategoryList.map((category, i) => (
-                <option key={i} value={category}>
-                  {category}
-                </option>
-              ))}
+              
             </select>
           </div>
         </div>

@@ -38,20 +38,21 @@ function ActivityTaskFeed(props){
             </div>
 
             <div className="profile-activityTasks-cards">
-              {activityTasks.map((activityTask) => <div className="activityTasks-profile">
-                  <div className="card card-profile">
-                  <img
-                    className="card-img-top" src={activityTask.mediaUrl} alt="Card image cap"/>
-                    <div className="card-body">
-                      <h5 className="card-title card-title-profile" >{activityTask.title} | <span className="activityTask-price">R${activityTask.price},00</span></h5>
-                        <p className="card-text card-text-profile">
-                          {activityTask.description}
-                        </p>
-                        <Link to={`/activityTask/${activityTask._id}`} className="link-detail-activityTask-card">Saiba mais</Link>
-                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+              {activityTasks.map((activityTask) => 
+                <div className="activityTasks-profile">
+                    <div className="card card-profile">
+                        <img className="card-img-top" src={activityTask.mediaUrl} alt="Card image cap"/>
+                        <div className="card-body">
+                          <h5 className="card-title card-title-profile" >{activityTask.title} | <span className="activityTask-price">R${activityTask.price},00</span></h5>
+                            <p className="card-text card-text-profile">
+                              {activityTask.description}
+                            </p>
+                            <Link to={`/activityTask/${activityTask._id}`} className="link-detail-activityTask-card">Saiba mais</Link>
+                            {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                        </div>
                     </div>
-                  </div>
-              </div>)}
+                </div>
+              )}
             </div>
         </div>
     )
