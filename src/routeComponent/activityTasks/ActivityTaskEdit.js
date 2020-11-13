@@ -1,84 +1,134 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, {useState} from "react";
 import api from "../../apis/index";
-import ActivityTaskForm from "./ActivityTaskForm";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 
-const ActivityTaskEdit = (props) => {
 
-    const history = useHistory();
-    const { _id } = props.loggedInUser;
+function ActivityTaskForm(props) {
 
-    const [state, setState] = useState({
-        title: "",
-        description: "",
-        specifications: "",
-        user: "",
-        artType: "",
-        subCategory: "",
-        media: "",
-        price: 0,
+  // DECLARAÇÕES A SEREM USADAS   
+
+  let {id} = useParams();
+  const history = useHistory();
+
+  const [state, setState] = useState({
+    loading: false,
+    error: "",
+  });
+
+
+  console.log("state = ", state)
+  console.log("props = ", props)
+  console.log("id = ", id)
+
+  //HANDLECHANGE
+
+  function handleChange(event) {
+    props.setActivityTasks({
+      ...props.activityTasksState,
+      [event.currentTarget.name]: event.currentTarget.value, day : props.date.daySelected, month : props.date.monthNow, year : props.date.yearNow, userId : props.loggedInUser._id 
+    });
+  }
+
+
+  //HANDLESUBMIT
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    setState({
+      ...state,
+      loading: true,
     });
 
-    useEffect(() => {
-        if (state.mediaUrl) {
-            handleSubmit(state);
-        }
-    }, [state]);
+    try {
+      event.preventDefault();
 
-    useEffect(() => {
-        (async function fetchActivityTask() {
-        const result = await api.get(`/activityTask/${_id}`, state);
-
-        setState({ ...result.data[0] });
-        })();
-    }, []);
-
-    async function handleSubmit(data) {
-        try {
+      const response = await api.patch(
+        `/ActivityTask/Update/${id}`, props.activityTasksState);
+          
+      
         
-        const result = await api.patch(`/activityTask/${_id}`, data);
+      console.log("handlesubmit funcionou")
 
-        history.push("/");
-        } catch (err) {
-        console.error(err);
-        }
+      setState({ ...state, loading: false });
+
+      // <Redirect to={`/ActivityTaskForm/day/${id}`}/>
+
+      history.push(`/day/${props.date.daySelected}`)
+
+    } catch (err) {
+      setState({ ...state, loading: false, error: err.message });
+      console.log( err.message );
     }
+  }
 
 
-    async function handleFileUpload(data) {
-        try{
-            const uploadData = new FormData();
-    
-            uploadData.append("media", data);
-    
-            const response = await api.post("/media-upload", uploadData);
-    
-            console.log(response.data.media);
-        return response.data.media;
-    
-        } catch(err){
-            console.error(err);
-        }
-    }
-            
+  //RETORNO JSX
 
-    return (
-        <div>
-            <h1 className="h1-activityTask-edit-form">Edite aqui o seu Produto: </h1>
-            <hr className="hr-activityTask-form"></hr>
-            <ActivityTaskForm
-                handleSubmit={handleSubmit}
-                handleFileUpload={handleFileUpload}
-                state={state}
-                setState={setState}
-            />
+  return (
+    <div className="activityTask-form-box">
+    <div className="activityTask-form-container">
+      <form className="form-activityTask-main" onSubmit={handleSubmit}>
+        <div className="form-activityTask form-group">
+          <label htmlFor="activityTaskTitleInput">Título:</label>
+          <input
+            type="text"
+            name="title"
+            className="form-control"
+            id="activityTaskTitleInput"
+            placeholder="Digite o título do evento aqui"
+            value={props.activityTasksState.title}
+            onChange={handleChange}
+          />
         </div>
-    )
+        <div className="form-activityTask form-group">
+          <label htmlFor="activityTaskDescriptionInput">Descrição:</label>
+          <textarea
+            type="text"
+            name="description"
+            className="form-control"
+            id="activityTaskDescriptionInput"
+            placeholder="Digite a descrição do evento aqui!"
+            value={props.activityTasksState.description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className="form-activityTask form-group">
+          <label htmlFor="activityTaskStartTimeInput">Início:</label>
+          <textarea
+            type="text"
+            name="initialDate"
+            className="form-control"
+            id="ctivityTaskStartTimeInput"
+            placeholder="Digite o Horário de início do evento aqui!"
+            value={props.activityTasksState.initialDate}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className="form-activityTask form-group">
+          <label htmlFor="activityTaskEndTimeInput">Término:</label>
+          <textarea
+            type="text"
+            name="endDate"
+            className="form-control"
+            id="activityTaskEndTimeInput"
+            placeholder="Digite o Horário de termino do evento aqui"
+            value={props.activityTasksState.endDate}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        
+        
+        
+        
+        
+        <button type="submit" className="btn-form-activityTask btn btn-dark">
+          Confirmar
+        </button>
+      </form>
+    </div>
+    </div>
+  );
 }
 
-export default ActivityTaskEdit;
-
-
-
-
-
+export default ActivityTaskForm;

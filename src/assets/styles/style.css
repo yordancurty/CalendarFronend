@@ -1295,9 +1295,62 @@ border-radius: 0%;
 
 .dayContainer{
     align-items: center;
-    border: solid 1px red;
+    /* border: solid 1px red; */
     flex-direction: column;
+    margin: 100px 0px;
+}
+
+.dayTitleDiv{
+    margin-bottom: 50px;
+}
+
+.tasksDiv{
+    margin-bottom: 50px;
+    /* border: solid 2px purple; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+}
+
+.addTaskBtn{
+    border: solid 2px #39BA90;
+    background-color: #39BA90;
+    border-radius: 8px;
+    color: #000000;
+    padding: 20px 160px;
+    size: 10px;
 }
 
 
 
+.taskIcon{
+    width: 50px;
+    /* border: solid 1px red; */
+    align-items: center;
+}
+
+.taskIconImg{
+    width: 30px;
+}
+
+
+
+.taskListTitle{
+    padding: 0px 10px;
+}
+
+.lixeixaIcon{
+    background-color: rgba(255, 1, 1, 0.541);
+}
+
+.editIcon{
+    background-color: #39BA90;
+}
+
+.taskListStyle{
+    margin: 15px 0px ;
+    border: solid 3px #39BA90;
+    border-radius: 8px;
+    background-color: #e8e8e9;
+}

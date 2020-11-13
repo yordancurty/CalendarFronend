@@ -40,14 +40,23 @@ let monthNumOfDays = null;
 
 function App() {
 
-    // STATE DAS TAREFAS
+    // STATE PARA CONSTRUÇÃO DAS TAREFAS
     const [activityTasks, setActivityTasks] = useState({
       title: null,
       description: null,
       initialDate: null,
-      endDate: null
-      
+      endDate: null,
+      year: null,
+      month: null ,
+      day: null,
+      userId: null
     });
+
+    // STATE PARA CONSTRUÇÃO DAS TAREFAS
+    const [taskList, setTaskList] = useState([]);
+
+
+
 
     // STATE DO USUARIO LOGADO
     const [loggedInUser, setLoggedInUser] = useState({});
@@ -239,7 +248,9 @@ function App() {
                       user={loggedInUser}
                       setUser={setLoggedInUser}
                       date ={date}
-                      setDate = {setDate} 
+                      setDate = {setDate}
+                      setTaskList = {setTaskList}
+                      taskList = {taskList} 
                   /> 
 
                   <PrivateRoute
@@ -249,6 +260,8 @@ function App() {
                       setUser={setLoggedInUser} 
                       date ={date}
                       setDate = {setDate}
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
                   /> 
 
                   <PrivateRoute
@@ -258,6 +271,8 @@ function App() {
                       setUser={setLoggedInUser}
                       date ={date}
                       setDate = {setDate} 
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
                   />  
 
                   {/* --------------- ROTAS DO SISTEMA DE TAREFAS -------------- */}
@@ -274,9 +289,11 @@ function App() {
                       setActivityTasks={setActivityTasks}
                       // actTask = {actTask}
                       // setActTask = {setActTask}
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
                   /> 
 
-                  <PrivateRoute
+                  {/* <PrivateRoute
                       path="/activityTask/new/:userId"
                       exact
                       component={ActivityTaskCreate}
@@ -285,17 +302,22 @@ function App() {
                       setActivityTasks={setActivityTasks}
                       // actTask = {actTask}
                       // setActTask = {setActTask}
-                  />  
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
+                  />   */}
 
                   <PrivateRoute
                       exact
                       path="/activityTask/edit/:id"
                       component={ActivityTaskEdit}
                       user={loggedInUser}
+                      date = {date}
                       activityTasksState={activityTasks}
                       setActivityTasks={setActivityTasks}
                       // actTask = {actTask}
                       // setActTask = {setActTask}
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
                   />
 
                   <PrivateRoute
@@ -303,6 +325,8 @@ function App() {
                       path="/activityTask/delete/:id"
                       component={ActivityTaskDelete}
                       user={loggedInUser}
+                      setTaskList = {setTaskList}
+                      taskList = {taskList}
                   />  
 
                   

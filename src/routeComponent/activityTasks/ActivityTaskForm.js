@@ -19,15 +19,13 @@ function ActivityTaskForm(props) {
   console.log("state = ", state)
   console.log("props = ", props)
   console.log("id = ", id)
-  
-
 
   //HANDLECHANGE
 
   function handleChange(event) {
     props.setActivityTasks({
       ...props.activityTasksState,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]: event.currentTarget.value, day : id, month : props.date.monthNow,year : props.date.yearNow, userId : props.loggedInUser._id 
     });
   }
 
@@ -46,7 +44,7 @@ function ActivityTaskForm(props) {
       event.preventDefault();
 
       const response = await api.post(
-        "/ActivityTaskForm/day/:id", props.activityTasksState);
+        `/ActivityTaskForm/day/${id}`, props.activityTasksState);
           
       
         
