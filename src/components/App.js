@@ -22,6 +22,7 @@ import DayGuide from "../routeComponent/calendar/DayGuide"
 import MonthGuide from "../routeComponent/calendar/MonthGuide"
 import YearGuide from "../routeComponent/calendar/YearGuide"
 
+import ActivityTaskForm from "../routeComponent/activityTasks/ActivityTaskForm";
 import ActivityTaskCreate from "../routeComponent/activityTasks/ActivityTaskCreate";
 import ActivityTaskEdit from "../routeComponent/activityTasks/ActivityTaskEdit";
 import ActivityTaskDetail from "../routeComponent/activityTasks/ActivityTaskDetail";
@@ -40,7 +41,13 @@ let monthNumOfDays = null;
 function App() {
 
     // STATE DAS TAREFAS
-    const [activityTasks, setActivityTasks] = useState([]);
+    const [activityTasks, setActivityTasks] = useState({
+      title: null,
+      description: null,
+      initialDate: null,
+      endDate: null
+      
+    });
 
     // STATE DO USUARIO LOGADO
     const [loggedInUser, setLoggedInUser] = useState({});
@@ -72,8 +79,16 @@ function App() {
         daySelected : null ,
         monthSelected : null,
         yearSelected : null,
+        showActivityTaskForm : false,
     })
 
+    // STATE PARA A ACTIVITYTASKS
+    // const [actTask, setActTask] =useState({
+    //   title: null,
+    //   description: null,
+    //   initialDate: null,
+    //   endDate: null
+    // })
 
 
     // useEffect para quando o App.js é carregado
@@ -176,7 +191,10 @@ function App() {
       <BrowserRouter>
       <Navbar user={loggedInUser} />
         {loggedInUser._id ? (
-              <Switch>            
+              <Switch>      
+
+                {/* ------------------------ ROTAS PRIVADAS GERAIS ------------------- */}
+
                   <PrivateRoute 
                     exact path="/logout" 
                     component={Logout} 
@@ -244,11 +262,29 @@ function App() {
 
                   {/* --------------- ROTAS DO SISTEMA DE TAREFAS -------------- */}
 
+                  {/* /ActivityTaskForm/day/:id */}
+
+                  <PrivateRoute
+                      path="/ActivityTaskForm/day/:id"
+                      exact
+                      component={ActivityTaskForm}
+                      user={loggedInUser}
+                      date = {date}
+                      activityTasksState={activityTasks}
+                      setActivityTasks={setActivityTasks}
+                      // actTask = {actTask}
+                      // setActTask = {setActTask}
+                  /> 
+
                   <PrivateRoute
                       path="/activityTask/new/:userId"
                       exact
                       component={ActivityTaskCreate}
                       user={loggedInUser}
+                      activityTasksState={activityTasks}
+                      setActivityTasks={setActivityTasks}
+                      // actTask = {actTask}
+                      // setActTask = {setActTask}
                   />  
 
                   <PrivateRoute
@@ -258,6 +294,8 @@ function App() {
                       user={loggedInUser}
                       activityTasksState={activityTasks}
                       setActivityTasks={setActivityTasks}
+                      // actTask = {actTask}
+                      // setActTask = {setActTask}
                   />
 
                   <PrivateRoute

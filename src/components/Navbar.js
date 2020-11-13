@@ -14,8 +14,8 @@ function Navbar(props) {
                     {props.user._id ?  (<div><Link className="navbar-brand menu-item" to="/today">Today</Link></div>) : null}
                     </li>
 
-                    <li className="nav-item mr-4">
-                    {props.user._id ? null : (<div><Link className="navbar-brand menu-item" to="/login">Login</Link></div>)}
+                    <li className="nav-item mr-4"> {props.user._id ? null : (<div><Link className="navbar-brand menu-item" to="/login">Login</Link></div>)}
+                   
                     </li>
 
                     <li className="nav-item mr-4">
