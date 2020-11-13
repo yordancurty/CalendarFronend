@@ -2,116 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
+
 function MonthGuide(props) {
 
 
-    let dateNow = new Date()
-    let monthNow = dateNow.getMonth()
-    let yearNow = dateNow.getFullYear()
-    let dayOfWeekNow = dateNow.getDay()
-    let dayOfMonthNow = dateNow.getDate()
-    let timeZone = dateNow.getTimezoneOffset()
-    let monthName;
+    // ------------ PREPARAÇÕES E BASICOS DA FUNÇÃO -----------
+    let daysInMonth = props.date.daysInMonth
 
-    let firstDayOfThisMonth = new Date(yearNow, monthNow, 1)
-    // let firstDayOfWeekInThisMonth = firstDayOfThisMonth.getDay()
+    console.log("props = ", props)
 
-    console.log("dateNow = ", dateNow);
-    console.log("Month =", monthNow);
-    console.log("Year =", yearNow);
-    console.log("Today in week =", dayOfWeekNow);
-    console.log("Today in month =", dayOfMonthNow);
-    console.log("Time Zone =", timeZone);
+    console.log("monthName =", props.date.monthName)
 
- 
-
-    const [state] = useState({
-        daysInMonth: [],
-         dateNow : new Date(),
-         monthNow : dateNow.getMonth(),
-         yearNow : dateNow.getFullYear(),
-         dayOfWeekNow : dateNow.getDay(),
-         dayOfMonthNow : dateNow.getDate(),
-         timeZone : dateNow.getTimezoneOffset(),
-         monthName : "",
-    });
-
-        console.log("state = ", state)
-    
-
-    // useEffect(() => {
-
-    //     (async function consctructMonth(){
-    //         // for (let i = 1; i <= 31; i++) {
-    //         //     state.daysInMonth.push(i)
-    //         // }
-    //         console.log("monthName =", monthName)
-
-    //     })()
-
-    // }, []);
-
-    for (let i = 1; i <= 31; i++) {
-        state.daysInMonth.push(i)
+    const handleChange = (elem) => {
+        // return props.setDate({...props.date, daySelected : elem })
+        console.log("handleChange funcionando")
+        
     }
 
-    switch (monthNow) {
-        case 0:
-            monthName ="JANEIRO"
-        break;
-        
-        case 1:
-            monthName ="FEVEREIRO"
-        break;
-        
-        case 2:
-            monthName ="MARÇO"
-        break;
-        
-        case 3:
-            monthName ="ABRIL"
-        break;
-        
-        case 4:
-            monthName ="MAIO"
-        break;
-        
-        case 5:
-            monthName ="JUNHO"
-        break;
-        
-        case 6:
-            monthName ="JULHO"
-        break;
-        
-        case 7:
-            monthName ="AGOSTO"
-        break;
-        
-        case 8:
-            monthName ="SETEMBRO"
-        break;
-        
-        case 9:
-            monthName ="OUTUBRO"
-        break;
-        
-        case 10:
-            monthName ="NOVEMBRO"
-        break;
-        
-        case 11:
-            monthName ="DEZEMBRO"
-        break;
-        
-            
 
-        default:
-            break;
-    };
+    // ------------- AÇÕES DA FUNÇÃO ---------------
 
+    daysInMonth = [];
 
-    console.log("monthName =", monthName)
+    for (let i = 1; i <= props.date.monthNumOfDays; i++) {
+        daysInMonth.push(i)
+    }
 
 
 
@@ -125,18 +40,18 @@ function MonthGuide(props) {
 
                 <div className="monthNameClass">
                     <h1>
-                        {monthName}
+                        {props.date.monthName}
                     </h1>
                 </div>
 
 
             <div className="monthContainer d-flex flex-wrap">
 
-                
+            {/* day/${elem} */}
 
-                {state.daysInMonth.map((elem, idx) => 
+                {daysInMonth.map((elem, idx) => 
                     
-                        <Link to={`/day/${elem}`} key={idx} className="  monthH1Div d-flex justify-content-center">
+                        <Link to={`/day/${elem}`} key={idx} className="  monthH1Div d-flex justify-content-center" onClick = {handleChange}>
                             <div className="monthDayText"> {elem} </div>
                         </Link>
                     

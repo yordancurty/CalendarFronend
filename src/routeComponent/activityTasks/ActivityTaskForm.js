@@ -2,6 +2,7 @@ import React from "react";
 
 
 function ActivityTaskForm(props) {
+  
   function handleChange(event) {
     if (event.currentTarget.files) {
       return props.setState({
